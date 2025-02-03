@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        if(loadingDialog != null && loadingDialog.isShowing()){
+        if(loadingDialog.isShowing()){
             loadingDialog.dismiss()
         }
     }
