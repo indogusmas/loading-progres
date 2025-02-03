@@ -24,9 +24,11 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        loadingDialog = LoadingDialog(this)
+        loadingDialog = LoadingDialog.Builder(this)
+            .setTitle("Loading Example")
+            .build()
         findViewById<Button>(R.id.btn_loading).setOnClickListener {
-            loadingDialog.show();
+            showLoadingWithDelay()
 
         }
     }

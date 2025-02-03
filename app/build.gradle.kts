@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.indo.exampleloadingprogressbar"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.indo.exampleloadingprogressbar"

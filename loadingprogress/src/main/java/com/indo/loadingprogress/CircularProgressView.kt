@@ -10,6 +10,7 @@ import android.view.View
 import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
 import android.view.animation.RotateAnimation
+import androidx.annotation.ColorInt
 
 class CircularProgressView @JvmOverloads constructor(
     context: Context,
@@ -84,10 +85,8 @@ class CircularProgressView @JvmOverloads constructor(
         super.onDraw(canvas)
 
         if (isIndeterminate) {
-            // Draw arc from 0 to 270 degrees
             canvas.drawArc(rectF, 0f, 270f, false, paint)
         } else {
-            // Draw progress arc
             canvas.drawArc(rectF, -90f, progress * 360f, false, paint)
         }
     }
@@ -111,10 +110,39 @@ class CircularProgressView @JvmOverloads constructor(
         }
     }
 
+    fun setProgressColor(@ColorInt color: Int) {
+        progressColor = color
+        paint.color = color
+        invalidate()
+    }
+
+    fun setStrokeWidth(width: Float) {
+        strokeWidth = width
+        paint.strokeWidth = width
+        invalidate()
+    }
+
+    fun setRotationDuration(duration: Long) {
+        rotationDuration = duration
+        rotateAnimation?.duration = duration
+    }
+
+    fun restartAnimation() {
+        if (isIndeterminate) {
+            clearAnimation()
+            startRotationAnimation()
+        }
+    }
+
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
         clearAnimation()
     }
 
-
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        if (isIndeterminate) {
+            startRotationAnimation()
+        }
+    }
 }
